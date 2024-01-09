@@ -13,7 +13,8 @@ export interface ITeaOwner extends mongoose.Document {
     branch: string,
     email: string,
     contact_number1: number,
-    contact_number2: number
+    contact_number2: number,
+    password:string,
     tea_leaves_id:ObjectId,
     fertilizer_id:ObjectId,
     tea_powder:ObjectId

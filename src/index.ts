@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import * as process from "process";
 import AdminRoutes from "./routes/admin.routes";
 import UserRoutes from "./routes/user.routes";
+import OwnerRoutes from "./routes/owner.routes";
 
 /**/
 const app=express();
@@ -59,6 +60,9 @@ app.use('/admin',AdminRoutes)
 
 /*--------------------------User---------------------------------------*/
 app.use('/user',UserRoutes)
+
+/*--------------------------Tea Owners---------------------------------*/
+app.use('/owner',OwnerRoutes)
 app.listen(8080,()=>{
     console.log("server Started on port 8080")
 })
