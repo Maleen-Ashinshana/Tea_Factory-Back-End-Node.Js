@@ -5,6 +5,7 @@ import express from  'express';
 import bodyParser from  "body-parser"
 import mongoose from "mongoose";
 import * as process from "process";
+import AdminRoutes from "./routes/admin.routes";
 
 /**/
 const app=express();
@@ -19,7 +20,7 @@ interface User {
     password: string
 }
 
-let user:User[]=[];
+/*let user:User[]=[];*/
 
 mongoose.connect(process.env.MONGO_URL as string)
 const db=mongoose.connection
@@ -32,25 +33,27 @@ db.on('open',()=>{
 
 
 
-app.get('/user/all',(req:express.Request,res:express.Response)=>{
+/*app.get('/user/all',(req:express.Request,res:express.Response)=>{
 
-/*let  data={
+/!*let  data={
     id:"ksajkhj",
     name:"Maleen",
     email:"lkcsmkaj"
-}*/
+}*!/
 
- res.send(user)
-})
+/!* res.send(user)*!/
+})*/
 
-app.post('/user',(req:express.Request,res:express.Response)=>{
+/*app.post('/user',(req:express.Request,res:express.Response)=>{
     const body= req.body;
     console.log(body)
 
     user.push(body)
 
     res.send("Ok")
-})
+})*/
+
+app.use('/admin',AdminRoutes)
 app.listen(8080,()=>{
     console.log("server Started on port 8080")
 })
