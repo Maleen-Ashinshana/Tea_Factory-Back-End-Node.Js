@@ -6,6 +6,7 @@ import bodyParser from  "body-parser"
 import mongoose from "mongoose";
 import * as process from "process";
 import AdminRoutes from "./routes/admin.routes";
+import UserRoutes from "./routes/user.routes";
 
 /**/
 const app=express();
@@ -53,7 +54,11 @@ db.on('open',()=>{
     res.send("Ok")
 })*/
 
+/*--------------------------Admin--------------------------------------*/
 app.use('/admin',AdminRoutes)
+
+/*--------------------------User---------------------------------------*/
+app.use('/user',UserRoutes)
 app.listen(8080,()=>{
     console.log("server Started on port 8080")
 })

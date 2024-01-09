@@ -59,3 +59,16 @@ export interface IUserOderFertilizer extends Document{
     price:number
 
 }
+export interface IOrder extends Document{
+    date:Date,
+    qty:number,
+    amount:number,
+    customerId:ObjectId,
+}
+export interface IOrderDetails extends Document{
+    date:Date,
+    qty:number,
+    price:number,
+    itemCode:ObjectId,
+
+}
