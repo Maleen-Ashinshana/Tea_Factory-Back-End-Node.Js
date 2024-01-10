@@ -6,13 +6,13 @@ import process from "process";
 import bcrypt from "bcryptjs";
 import TeaOwnerModel from "../models/tea_owner.model";
 import Tea_ownerModel from "../models/tea_owner.model";
-import UserModel from "../models/user.model";
+
 
 
 export const getAllOwners = async (req: express.Request, res: express.Response) => {
 
     try {
-        let users = await UserModel.find();
+        let users = await Tea_ownerModel.find();
         res.status(200).send(
             new CustomResponse(200, "Users are found successfully", users)
         );

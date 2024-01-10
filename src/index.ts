@@ -8,6 +8,8 @@ import * as process from "process";
 import AdminRoutes from "./routes/admin.routes";
 import UserRoutes from "./routes/user.routes";
 import OwnerRoutes from "./routes/owner.routes";
+import Tea_ownerModel from "./models/tea_owner.model";
+import Tea_leavesRoutes from "./routes/tea_leaves.routes";
 
 /**/
 const app=express();
@@ -63,6 +65,9 @@ app.use('/user',UserRoutes)
 
 /*--------------------------Tea Owners---------------------------------*/
 app.use('/owner',OwnerRoutes)
+
+/*--------------------------Tea Leaves----------------------------------*/
+app.use('/leaves',Tea_leavesRoutes);
 app.listen(8080,()=>{
     console.log("server Started on port 8080")
 })

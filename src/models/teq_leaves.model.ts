@@ -6,3 +6,5 @@ const Leaves =new mongoose.Schema<SchemaType.ITeaLeaves>({
     qty:{type:Number,required:true},
     price:{type:Number,required:true}
 })
+const LeavesModel=mongoose.model('tea_leaves',Leaves);
+export default LeavesModel;
