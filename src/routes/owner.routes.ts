@@ -6,6 +6,7 @@ const router=express.Router();
 
 router.post('/',TeaOwnerController.createNewTeaOwner)
 router.get('/all',TeaOwnerController.getAllOwners)
+router.post('/auth',TeaOwnerController.authTeaOwner)
 
 
 export default router

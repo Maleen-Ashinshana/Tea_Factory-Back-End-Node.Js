@@ -5,6 +5,7 @@ import * as SchemaTypes from "../types/SchemaTypes";
 import jwt, {Secret} from "jsonwebtoken";
 import process from "process";
 import bcrypt from "bcryptjs";
+import * as SchemaType from "../types/SchemaTypes";
 
 export const getAllUser = async (req: express.Request, res: express.Response) => {
 
@@ -50,4 +51,55 @@ export const createNewUser = async (req: express.Request, res: express.Response)
         res.status(100).send("Error")
     }
 
+}
+export const authCustomer = async (req: express.Request, res: express.Response) => {
+    try {
+
+        let request_body = req.body
+
+        let customer: SchemaType.IUser | null = await UserModel.findOne({username: request_body.username});
+        if(customer) {
+
+            let isMatch = await bcrypt.compare(request_body.password, customer.password)
+
+            if(isMatch) {
+
+                // token gen
+                customer.password = "";
+
+                const expiresIn = '1w';
+
+                jwt.sign({customer}, process.env.SECRET as Secret, {expiresIn}, (err: any, token: any) => {
+
+                    if(err) {
+                        res.status(100).send(
+                            new CustomResponse(100, "Somthing went wrong")
+                        );
+                    } else {
+
+                        let res_body = {
+                            customer: customer,
+                            accessToken: token
+                        }
+
+                        res.status(200).send(
+                            new CustomResponse(200, "Access", res_body)
+                        );
+                    }
+
+                })
+            } else {
+                res.status(401).send(
+                    new CustomResponse(401, "Invalid credentials")
+                );
+            }
+        } else {
+            res.status(404).send(
+                new CustomResponse(404, "User not found")
+            );
+        }
+
+    } catch (error) {
+        res.status(100).send("Error");
+    }
 }

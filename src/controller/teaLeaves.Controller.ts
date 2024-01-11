@@ -57,7 +57,7 @@ export const getLeavesByLeavesType=async (req:express.Request,res:express.Respon
         }else {
             let type=await Teq_leavesModel.find({tea_leaves_type:leaves_type.id})
             res.status(200).send(
-                new CustomResponse(200,"Tea Leaves Are Found successfully!",type)
+                new CustomResponse(200,"Tea Leaves Are Found successfully!",type,leaves_type)
             )
         }
     }catch (error){
@@ -65,12 +65,40 @@ export const getLeavesByLeavesType=async (req:express.Request,res:express.Respon
     }
 }
 /*Update Tea Leaves*/
-export const updateLeaves = async (req: express.Request, res: any) => {
+
+export const updateLeaves = async (req: express.Request, res: express.Response) => {
+    try {
+        const leavesId = req.params.id;
+
+        const leaves = await teq_leavesModel.findOneAndUpdate(
+            { _id: leavesId },
+            {
+                tea_leaves_type: req.body.tea_leaves_type,
+                qty: req.body.qty,
+                price: req.body.price,
+            },
+            { new: true }
+        );
+
+        if (leaves) {
+            res.status(200).send(new CustomResponse(100, "Leaves updated successfully."));
+        } else {
+            res.status(401).send(new CustomResponse(401, "Access Denied"));
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(new CustomResponse(500, "Internal Server Error"));
+    }
+};
+
+
+/*export const updateLeaves = async (req: express.Request, res: any) => {
     try {
 
         let req_body: any = req.body
 
-        let leaves_id = res.tokenData.tea_leaves_type._id;
+        let leaves_id = res.tea_leaves_type._id;
+        console.log("Leaves id :"+leaves_id,leaves_id)
 
         let leaves = await teq_leavesModel.find({_id: req_body.id ,leaves_type: leaves_id})
 
@@ -105,4 +133,4 @@ export const updateLeaves = async (req: express.Request, res: any) => {
     } catch (error) {
         res.status(100).send("Error");
     }
-}
+}*/
