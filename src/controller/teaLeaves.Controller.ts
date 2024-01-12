@@ -134,3 +134,34 @@ export const updateLeaves = async (req: express.Request, res: express.Response) 
         res.status(100).send("Error");
     }
 }*/
+
+export const deleteLeaves = async (req: express.Request, res: any) => {
+    try {
+        /*let user_id = res.tokenData.user._id;*/
+
+        let leaves_id: string = req.params.id;
+
+        let leaves = await Teq_leavesModel.find({_id: leaves_id})
+
+        if(leaves) {
+
+            await Teq_leavesModel.deleteOne({_id: leaves_id}).then(r => {
+                res.status(200).send(
+                    new CustomResponse(200, "Leaves is deleted successfully.")
+                )
+            }).catch(e => {
+                res.status(100).send(
+                    new CustomResponse(100, "Something went wrong.")
+                )
+            })
+
+        } else {
+            res.stat(401).send(
+                new CustomResponse(401, "Access denied")
+            )
+        }
+
+    } catch (error) {
+        res.status(100).send("Error");
+    }
+}
