@@ -73,7 +73,7 @@ app.use('/leaves',Tea_leavesRoutes);
 /*---------------------------Tea Fertilizer-----------------------------*/
 app.use('/fertilizer',fertilizerRoutes);
 
-//app.use(express.json({ limit: '100mb' }));
+//app.use(express.json({ limit: '500mb' }));
 app.listen(8080,()=>{
     console.log("server Started on port 8080")
 })
