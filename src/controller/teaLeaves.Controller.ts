@@ -36,7 +36,7 @@ export const getAllLeaves = async (req: express.Request, res: express.Response) 
     try {
         let leaves = await Teq_leavesModel.find();
         res.status(200).send(
-            new CustomResponse(200, "Articles are found successfully", leaves)
+            new CustomResponse(200, "Leaves are found successfully", leaves)
         )
 
     } catch (error) {

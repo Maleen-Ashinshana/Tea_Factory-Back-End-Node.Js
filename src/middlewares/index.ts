@@ -19,3 +19,4 @@ export const verifyToken = (req: express.Request, res: any, next: express.NextFu
         return res.status(401).json('Invalid token')
     }
 }
+

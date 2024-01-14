@@ -27,7 +27,8 @@ export interface ITeaLeaves extends Document{
 export interface ITeaFertilizer extends Document{
     tea_fertilizer_type:string,
     qty:number,
-    price:number
+    price:number,
+    image:string
 }
 /*User  dila thiyena the kola pramayana add kirimata*/
 export interface IUserTeaLeaves extends Document{
