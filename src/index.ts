@@ -11,6 +11,7 @@ import OwnerRoutes from "./routes/owner.routes";
 import Tea_ownerModel from "./models/tea_owner.model";
 import Tea_leavesRoutes from "./routes/tea_leaves.routes";
 import fertilizerRoutes from "./routes/fertilizer.routes";
+import user_tea_LeavesRoutes from "./routes/user_tea_Leaves.routes";
 
 /**/
 const app=express();
@@ -72,6 +73,10 @@ app.use('/leaves',Tea_leavesRoutes);
 
 /*---------------------------Tea Fertilizer-----------------------------*/
 app.use('/fertilizer',fertilizerRoutes);
+
+
+/*---------------------------User Tea Leaves----------------------------*/
+app.use('/userLeaves',user_tea_LeavesRoutes);
 
 //app.use(express.json({ limit: '500mb' }));
 app.listen(8080,()=>{

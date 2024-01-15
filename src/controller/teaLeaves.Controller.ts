@@ -30,7 +30,7 @@ export const createTeaLeavesType = async (req: express.Request, res: any) => {
     } catch (error) {
         res.status(100).send("Error");
     }
-}
+};
 /*Get All Tea Leaves types*/
 export const getAllLeaves = async (req: express.Request, res: express.Response) => {
     try {
