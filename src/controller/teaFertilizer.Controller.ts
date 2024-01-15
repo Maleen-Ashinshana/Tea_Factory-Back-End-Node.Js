@@ -206,7 +206,7 @@ export const getFertilizerByType=async (req:express.Request,res:express.Response
     }
 };
 
-export const updateFertilizer = async (req: express.Request, res: express.Response) => {
+/*export const updateFertilizer = async (req: express.Request, res: express.Response) => {
     try {
         const fertilizerId = req.params.id;
 
@@ -218,6 +218,38 @@ export const updateFertilizer = async (req: express.Request, res: express.Respon
                 price: req.body.price,
                 image:req.body.image,
             },
+            { new: true }
+        );
+
+        if (fertilizer) {
+            res.status(200).send(new CustomResponse(200, "Fertilizer Updated successfully."));
+        } else {
+            res.status(401).send(new CustomResponse(401, "Access Denied"));
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(new CustomResponse(500, "Internal Server Error"));
+    }
+};*/
+
+export const updateFertilizer = async (req: express.Request, res: express.Response) => {
+    try {
+        const fertilizerId = req.params.id;
+
+        let updateFields: any = {
+            tea_fertilizer_type: req.body.tea_fertilizer_type,
+            qty: req.body.qty,
+            price: req.body.price,
+        };
+
+        // Check if an image is provided in the request
+        if (req.body.image) {
+            updateFields.image = req.body.image;
+        }
+
+        const fertilizer = await FertilizerModel.findOneAndUpdate(
+            { _id: fertilizerId },
+            updateFields,
             { new: true }
         );
 

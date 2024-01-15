@@ -35,7 +35,8 @@ export interface IUserTeaLeaves extends Document{
     data:Date,
     leaves_type:string,
     qty:number,
-    price:number
+    price:number,
+    owner:ObjectId
 
 }
 
@@ -45,7 +46,8 @@ export interface IUserOderTeaPowder extends mongoose.Document{
     powder_type:string,
     qty:number,
     price:number,
-    user:ObjectId
+    user:ObjectId,
+    //owner:ObjectId
 
 }
 export interface IUser extends Document{
@@ -58,7 +60,8 @@ export interface IUserOderFertilizer extends Document{
     date:Date,
     fertilizer_type:string,
     qty:number,
-    price:number
+    price:number,
+    owner:ObjectId
 
 }
 export interface IOrder extends Document{
