@@ -7,6 +7,7 @@ import jwt, {Secret} from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import AdminModel from "../models/admin.model";
 import process from "process";
+import UserModel from "../models/user.model";
 
 
 export const createNewAdmin = async (req: express.Request, res: express.Response) => {
@@ -93,6 +94,17 @@ export const authAdmin = async (req: express.Request, res: express.Response) => 
 
     } catch (error) {
         res.status(100).send("Error");
+    }
+};
+export const getAllAdmin = async (req: express.Request, res: express.Response) => {
+
+    try {
+        let admin = await AdminModel.find();
+        res.status(200).send(
+            new CustomResponse(200, "Admin are found successfully", admin)
+        );
+    } catch (error) {
+        res.status(100).send("Error")
     }
 }
 

@@ -57,19 +57,19 @@ export const authCustomer = async (req: express.Request, res: express.Response) 
 
         let request_body = req.body
 
-        let customer: SchemaType.IUser | null = await UserModel.findOne({username: request_body.username});
-        if(customer) {
+        let user: SchemaType.IUser | null = await UserModel.findOne({username: request_body.username});
+        if(user) {
 
-            let isMatch = await bcrypt.compare(request_body.password, customer.password)
+            let isMatch = await bcrypt.compare(request_body.password, user.password)
 
             if(isMatch) {
 
                 // token gen
-                customer.password = "";
+                user.password = "";
 
                 const expiresIn = '1w';
 
-                jwt.sign({customer}, process.env.SECRET as Secret, {expiresIn}, (err: any, token: any) => {
+                jwt.sign({user: user}, process.env.SECRET as Secret, {expiresIn}, (err: any, token: any) => {
 
                     if(err) {
                         res.status(100).send(
@@ -78,7 +78,7 @@ export const authCustomer = async (req: express.Request, res: express.Response) 
                     } else {
 
                         let res_body = {
-                            customer: customer,
+                            customer: user,
                             accessToken: token
                         }
 

@@ -12,10 +12,13 @@ import Tea_ownerModel from "./models/tea_owner.model";
 import Tea_leavesRoutes from "./routes/tea_leaves.routes";
 import fertilizerRoutes from "./routes/fertilizer.routes";
 import user_tea_LeavesRoutes from "./routes/user_tea_Leaves.routes";
+import cors from "cors";
 
 /**/
 const app=express();
-
+app.use(cors({
+    origin: "*"
+}))
 // @ts-ignore
 app.use(bodyParser.json())
 
@@ -77,6 +80,7 @@ app.use('/fertilizer',fertilizerRoutes);
 
 /*---------------------------User Tea Leaves----------------------------*/
 app.use('/userLeaves',user_tea_LeavesRoutes);
+
 
 //app.use(express.json({ limit: '500mb' }));
 app.listen(8080,()=>{

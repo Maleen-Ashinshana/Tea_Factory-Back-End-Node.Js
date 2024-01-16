@@ -16,15 +16,17 @@ export const saveTeaLeaves = async (req: express.Request, res: any) => {
     try {
 
         let req_body = req.body;
-        let owner_id=res.tokenData.owner._id;
+        let owner_id=res.tokenData.user._id;
 
         console.log("Request Body :",req_body);
-        console.log("Owner ID :",owner_id);
 
+       /* console.log("Request Body :",req_body);
+        console.log(res)*/
+       // console.log("Owner ID :",owner_id);
 
         let user_leavesModel = new UserTeaLeaves({
             data: req_body.data,
-            leaves_type: req_body.tea_leaves_type,
+            leaves_type: req_body.leaves_type,
             qty: req_body.qty,
             price:req_body.price,
             owner:new Object(owner_id)
@@ -42,6 +44,8 @@ export const saveTeaLeaves = async (req: express.Request, res: any) => {
         });
 
     } catch (error) {
+        console.log(error)
         res.status(100).send("Error");
+
     }
 }

@@ -4,7 +4,7 @@ import * as Middleware from "../middlewares";
 
 const router=express.Router();
 
-router.post('/',Middleware.verifyToken,useTeaLeaves.saveTeaLeaves)
+router.post('/save',Middleware.verifyToken,useTeaLeaves.saveTeaLeaves)
 
 
 
