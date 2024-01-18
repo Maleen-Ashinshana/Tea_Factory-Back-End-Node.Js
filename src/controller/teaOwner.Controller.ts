@@ -27,6 +27,7 @@ export const getAllOwners = async (req: express.Request, res: express.Response) 
 export const createNewTeaOwner = async (req: express.Request, res: express.Response) => {
     try {
         const req_body: any = req.body;
+        console.log(req_body)
 
         await bcrypt.hash(req_body.password, 8, async function (err, hash) {
             if (err) {

@@ -13,6 +13,8 @@ import Tea_leavesRoutes from "./routes/tea_leaves.routes";
 import fertilizerRoutes from "./routes/fertilizer.routes";
 import user_tea_LeavesRoutes from "./routes/user_tea_Leaves.routes";
 import cors from "cors";
+import type_of_tea_powderModel from "./models/type_of_tea_powder.model";
+import type_of_tea_powderRouts from "./routes/type_of_tea_powder.routs";
 
 /**/
 const app=express();
@@ -80,6 +82,9 @@ app.use('/fertilizer',fertilizerRoutes);
 
 /*---------------------------User Tea Leaves----------------------------*/
 app.use('/userLeaves',user_tea_LeavesRoutes);
+
+/*---------------------------Type Of Tea Powder-------------------------*/
+app.use('/teaPowder',type_of_tea_powderRouts)
 
 
 //app.use(express.json({ limit: '500mb' }));

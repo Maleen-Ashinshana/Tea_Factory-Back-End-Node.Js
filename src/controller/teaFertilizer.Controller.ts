@@ -191,6 +191,9 @@ export const getFertilizerByType=async (req:express.Request,res:express.Response
         let tea_fertilizer_type:string=req.params.tea_fertilizer_type;
         let fertilizer_type:any=await FertilizerModel.findOne({tea_fertilizer_type:tea_fertilizer_type});
 
+        console.log(tea_fertilizer_type)
+        console.log(fertilizer_type)
+
         if (!fertilizer_type){
             res.status(404).send(
                 new CustomResponse(404,"Tea Fertilizer Type Not Found!")

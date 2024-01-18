@@ -30,6 +30,14 @@ export interface ITeaFertilizer extends Document{
     price:number,
     image:string
 }
+export interface ITypes_of_tea_powder extends Document{
+    item_name:string,
+    type:string,
+    qty:number,
+    price:number,
+    image:string
+}
+
 /*User  dila thiyena the kola pramayana add kirimata*/
 export interface IUserTeaLeaves extends Document{
     data:Date,
