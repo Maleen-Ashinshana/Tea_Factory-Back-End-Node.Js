@@ -10,4 +10,5 @@ router.get('/type/:type',powderController.getPowderByLeavesTypes);
 router.get('/:item_name',powderController.getPowderByItemName);
 router.put('/:item_name',powderController.updatePowderByItemName);
 router.delete('/:item_name',powderController.deletePowderByItemName);
+//router.post('/auth',powderController.authTeaPowder);
 export default router

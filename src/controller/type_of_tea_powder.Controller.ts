@@ -8,6 +8,8 @@ import bcrypt from "bcryptjs";
 import multer from "multer";
 import Teq_leavesModel from "../models/teq_leaves.model";
 import powder from "../models/uset_order_tea_powder.model";
+import * as SchemaType from "../types/SchemaTypes";
+import UserModel from "../models/user.model";
 
 
 
@@ -18,38 +20,38 @@ export const createTypeOfTeaPowder = async (req: express.Request, res: any) => {
     try {
         upload(req, res, async (err: any) => {
             if (err) {
-                console.log(err);
-                return res.status(400).send('Error handling file upload');
+                console.error(err);
+                return res.status(500).send(new CustomResponse(100, "Error uploading image."));
             }
-
-            const reqBody = req.body;
-
-
-            if (!req.file) {
-                return res.status(400).send('No file uploaded');
-            }
-
-            const image = req.file.buffer.toString('base64');
-
-            const powder = new powderModel({
-                item_name: reqBody.item_name,
-                type: reqBody.type,
-                qty: reqBody.qty,
-                price: reqBody.price,
-                image: image,
-            });
 
             try {
-                await powder.save();
-                res.status(200).send(new CustomResponse(200, 'Tea Powder created successfully.'));
-            } catch (saveError) {
-                console.error('Error saving Powder:', saveError);
-                res.status(500).send(new CustomResponse(100, 'Error saving Powder'));
+                let req_body = req.body;
+
+                // Assuming 'image' is now a base64-encoded string
+                const imageBuffer = Buffer.from(req_body.image, 'base64');
+
+                let powder_model = new powderModel({
+                    itemName: req_body.itemName,
+                    type: req_body.type,
+                    qty: req_body.qty,
+                    price: req_body.price,
+                    image: imageBuffer,
+                });
+
+                await powder_model.save().then((r) => {
+                    res.status(200).send(new CustomResponse(200, "Item created successfully."));
+                }).catch((e) => {
+                    console.error(e);
+                    res.status(100).send(new CustomResponse(100, "Something went wrong"));
+                });
+            } catch (error) {
+                console.error(error);
+                res.status(100).send(new CustomResponse(100, "Error processing request"));
             }
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(100).send(new CustomResponse(100, "Error"));
     }
 };
 
@@ -176,7 +178,57 @@ export const deletePowderByItemName = async (req: express.Request, res: express.
         res.status(500).send("Internal Server Error");
     }
 };
+/*export const authTeaPowder = async (req: express.Request, res: express.Response) => {
+    try {
 
+        let request_body = req.body
+
+        let powder: SchemaType.ITypes_of_tea_powder | null = await powderModel.findOne({powder_type: request_body.powder_type});
+        if(powder) {
+
+            let isMatch = await bcrypt.compare(request_body.powder_type, powder.type)
+
+            if(isMatch) {
+
+                // token gen
+                powder.type = "";
+
+                const expiresIn = '1w';
+
+                jwt.sign({type: powder}, process.env.SECRET as Secret, {expiresIn}, (err: any, token: any) => {
+
+                    if(err) {
+                        res.status(100).send(
+                            new CustomResponse(100, "Somthing went wrong")
+                        );
+                    } else {
+
+                        let res_body = {
+                            tea_powder: powder,
+                            accessToken: token
+                        }
+
+                        res.status(200).send(
+                            new CustomResponse(200, "Access", res_body)
+                        );
+                    }
+
+                })
+            } else {
+                res.status(401).send(
+                    new CustomResponse(401, "Invalid credentials")
+                );
+            }
+        } else {
+            res.status(404).send(
+                new CustomResponse(404, "Powder Type not found")
+            );
+        }
+
+    } catch (error) {
+        res.status(100).send("Error");
+    }
+}*/
 
 
 
